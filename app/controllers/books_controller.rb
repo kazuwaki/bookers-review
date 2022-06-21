@@ -45,14 +45,22 @@ class BooksController < ApplicationController
     redirect_to books_path
   end
 
+  def search
+    if params[:tag].present?
+      @books = Book.where('tag LIKE?', "#{params[:tag]}%")
+    else
+      @books = Book.none
+    end
+  end
+
   private
 
   def book_params1
-    params.require(:book).permit(:title, :body, :star)
+    params.require(:book).permit(:title, :body, :star, :tag)
   end
 
   def book_params2
-    params.require(:book).permit(:title, :body)
+    params.require(:book).permit(:title, :body,:tag)
   end
 
   def ensure_correct_user
