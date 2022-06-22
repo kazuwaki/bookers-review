@@ -16,6 +16,7 @@
             <th>グループ名</th>
             <th>紹介文</th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -24,8 +25,11 @@
             <td><%= image_tag group.get_image, size: '50x50' %></td>
             <td><%= link_to group_path(group) do %><%= group.name %><% end %></td>
             <td><%= group.introduction %></td>
-            <td><% if group.owner_id == current_user.id %>
-              <%= link_to "Edit", edit_group_path(group),class: "btn btn-sm btn-success edit_book_#{group}" %><% end %>
+            <td><%= group.users.count %></td>
+            <td>
+              <% if group.owner_id == current_user.id %>
+                <%= link_to "Edit", edit_group_path(group),class: "btn btn-sm btn-success edit_book_#{group}" %>
+                <% end %>
             </td>
           </tr>
           <% end %>
